@@ -27,7 +27,8 @@
             <td>{{ s[5] }}</td>
             <td>
                 {% if s[5] == 'Dostępny' %}
-                    <a href="{{ url_for('dodaj_wypozyczenie') }}">Wypożycz</a>
+                    <a href="{{ url_for('dodaj_wypozyczenie') }}">Wypożycz</a> |
+                    <a href="{{ url_for('usun_samochod', id=s[0], id_punktu=s[6]) }}">Usuń</a>
                 {% else %}
                     <a href="{{ url_for('zwroc_samochod', id_wypozyczenia=s[0]) }}">Zwróć</a>
                 {% endif %}
