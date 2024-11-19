@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dodaj Samochód</title>
+</head>
+<body>
+    <h1>Dodaj nowy samochód</h1>
+    <form method="post">
+        Nr Rejestracyjny:<br>
+        <input type="text" name="nr_rejestracyjny" required><br>
+        Nazwa Typu:<br>
+        <input type="text" name="nazwa_typu" required><br>
+        Kategoria:<br>
+        <input type="text" name="kategoria" required><br>
+        Marka:<br>
+        <input type="text" name="marka" required><br>
+        Model:<br>
+        <input type="text" name="model" required><br>
+        Rok Produkcji:<br>
+        <input type="number" name="rok_produkcji" required><br>
+        Kolor:<br>
+        <input type="text" name="kolor" required><br>
+        Przebieg:<br>
+        <input type="text" name="przebieg" required><br>
+        ID Punktu (1 - Warszawa, 2 - Wrocław):<br>
+        <input type="number" name="id_punktu" min="1" max="2" required><br><br>
+        <input type="submit" value="Dodaj Samochód">
+    </form>
+    <br>
+    <a href="{{ url_for('samochody') }}">Powrót</a>
+</body>
+</html>

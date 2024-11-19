@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strona Główna</title>
+    </head>
+    <body>
+        <h1>Strona Główna</h1>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Lista Klientów</a></li>
+            <li><a href="{{ url_for('pracownicy') }}">Lista Pracowników</a></li>
+            <li><a href="{{ url_for('samochody') }}">Lista Samochodów</a></li>
+            <li><a href="{{ url_for('dodaj_klienta') }}">Dodaj Klienta</a></li>
+            <li><a href="{{ url_for('dodaj_pracownika') }}">Dodaj Pracownika</a></li>
+            <li><a href="{{ url_for('dodaj_samochod') }}">Dodaj Samochód</a></li>
+        </ul>
+    </body>
+
+<head>
+    <title>Lista Klientów</title>
+</head>
+<body>
+    <h1>Klienci z Wrocławia (DB_1)</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+        </tr>
+        {% for klient in klienci_db1 %}
+        <tr>
+            <td>{{ klient[0] }}</td>
+            <td>{{ klient[1] }}</td>
+            <td>{{ klient[2] }}</td>
+            <td>{{ klient[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Klienci z Warszawy (DB_2)</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+        </tr>
+        {% for klient in klienci_db2 %}
+        <tr>
+            <td>{{ klient[0] }}</td>
+            <td>{{ klient[1] }}</td>
+            <td>{{ klient[2] }}</td>
+            <td>{{ klient[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+</body>
+</html>

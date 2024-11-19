@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Samochodów</title>
+    <a href="{{ url_for('dodaj_samochod') }}">Dodaj Samochód</a>
+</head>
+<body>
+    <h1>Lista Samochodów</h1>
+    <a href="{{ url_for('dodaj_wypozyczenie') }}">Dodaj Wypożyczenie</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nr Rejestracyjny</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Kolor</th>
+            <th>Status</th>
+            <th>Akcje</th>
+        </tr>
+        {% for s in samochody %}
+        <tr>
+            <td>{{ s[0] }}</td>
+            <td>{{ s[1] }}</td>
+            <td>{{ s[2] }}</td>
+            <td>{{ s[3] }}</td>
+            <td>{{ s[4] }}</td>
+            <td>{{ s[5] }}</td>
+            <td>
+                {% if s[5] == 'Dostępny' %}
+                    <a href="{{ url_for('dodaj_wypozyczenie') }}">Wypożycz</a>
+                {% else %}
+                    <a href="{{ url_for('zwroc_samochod', id_wypozyczenia=s[0]) }}">Zwróć</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('index') }}">Powrót</a>
+</body>
+</html>

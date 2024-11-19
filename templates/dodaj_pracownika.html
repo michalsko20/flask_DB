@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dodaj Pracownika</title>
+</head>
+<body>
+    <h1>Dodaj nowego pracownika</h1>
+    <form method="post">
+        Imię:<br>
+        <input type="text" name="imie" required><br>
+        Nazwisko:<br>
+        <input type="text" name="nazwisko" required><br>
+        Email:<br>
+        <input type="email" name="email" required><br>
+        ID Punktu (1 - Warszawa, 2 - Wrocław):<br>
+        <input type="number" name="id_punktu" min="1" max="2" required><br><br>
+        <input type="submit" value="Dodaj">
+    </form>
+    <br>
+    <a href="{{ url_for('pracownicy') }}">Powrót</a>
+</body>
+</html>

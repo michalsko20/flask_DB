@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dodaj Wypożyczenie</title>
+</head>
+<body>
+    <h1>Dodaj nowe wypożyczenie</h1>
+    <form method="post">
+        Wybierz samochód:<br>
+        <select name="id_samochodu" required>
+            {% for s in samochody %}
+            <option value="{{ s[0] }}">{{ s[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        Wybierz klienta:<br>
+        <select name="id_klienta" required>
+            {% for k in klienci %}
+            <option value="{{ k[0] }}">{{ k[1] }} {{ k[2] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        Wybierz pracownika:<br>
+        <select name="id_pracownika" required>
+            {% for p in pracownicy %}
+            <option value="{{ p[0] }}">{{ p[1] }} {{ p[2] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        ID Punktu (1 - Warszawa, 2 - Wrocław):<br>
+        <input type="number" name="id_punktu" min="1" max="2" required><br><br>
+
+        <input type="submit" value="Dodaj Wypożyczenie">
+    </form>
+    <br>
+    <a href="{{ url_for('samochody') }}">Powrót</a>
+</body>
+</html>
