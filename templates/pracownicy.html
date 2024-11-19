@@ -21,6 +21,9 @@
             <td>{{ p[2] }}</td>
             <td>{{ p[3] }}</td>
             <td>{{ p[4] }}</td>
+            <td>
+                <a href="{{ url_for('usun_pracownika', id=p[0], id_punktu=2) }}">Usuń</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -41,6 +44,9 @@
             <td>{{ p[2] }}</td>
             <td>{{ p[3] }}</td>
             <td>{{ p[4] }}</td>
+            <td>
+                <a href="{{ url_for('usun_pracownika', id=p[0], id_punktu=1) }}">Usuń</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

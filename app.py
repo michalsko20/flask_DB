@@ -206,6 +206,88 @@ def dodaj_samochod():
         return redirect(url_for('samochody'))
     return render_template('dodaj_samochod.html')
 
+@app.route('/usun_klienta/<int:id_klienta>/<int:id_punktu_fk>', methods=['GET', 'POST'])
+def usun_klienta(id_klienta, id_punktu_fk):
+    if id_punktu_fk < 2:
+        # Klient z Warszawy - usuń z DB_2
+        conn_db2 = get_db2_connection()
+        cursor_db2 = conn_db2.cursor()
+        cursor_db2.execute("""
+            DELETE FROM Klienci_Warszawa WHERE id_klienta = :id_klienta
+        """, id_klienta=id_klienta)
+        conn_db2.commit()
+        cursor_db2.close()
+        conn_db2.close()
+    else:
+        # Klient z Wrocławia - usuń z DB_1
+        conn_db1 = get_db1_connection()
+        cursor_db1 = conn_db1.cursor()
+        cursor_db1.execute("""
+            DELETE FROM Klienci WHERE id_klienta = :id_klienta
+        """, id_klienta=id_klienta)
+        conn_db1.commit()
+        cursor_db1.close()
+        conn_db1.close()
+    return redirect(url_for('index'))
+
+@app.route('/usun_pracownika/<int:id>/<int:id_punktu>', methods=['GET', 'POST'])
+def usun_pracownika(id, id_punktu):
+    if id_punktu < 2:
+        # Pracownik z Warszawy - usuń z DB_2
+        conn_db2 = get_db2_connection()
+        cursor_db2 = conn_db2.cursor()
+        cursor_db2.execute("""
+            DELETE FROM Pracownicy_Warszawa WHERE id = :id
+        """, id=id)
+        conn_db2.commit()
+        cursor_db2.close()
+        conn_db2.close()
+    else:
+        # Pracownik z Wrocławia - usuń z DB_1
+        conn_db1 = get_db1_connection()
+        cursor_db1 = conn_db1.cursor()
+        cursor_db1.execute("""
+            DELETE FROM Pracownicy WHERE id = :id
+        """, id=id)
+        conn_db1.commit()
+        cursor_db1.close()
+        conn_db1.close()
+    return redirect(url_for('pracownicy'))
+
+@app.route('/usun_samochod/<int:id>/<int:id_punktu>', methods=['GET', 'POST'])
+def usun_samochod(id, id_punktu):
+    if id_punktu < 2:
+        # Samochód z Warszawy - usuń z DB_2
+        conn_db2 = get_db2_connection()
+        cursor_db2 = conn_db2.cursor()
+        # Usuwamy najpierw z Typ_Samochodu_Warszawa
+        cursor_db2.execute("""
+            DELETE FROM Typ_Samochodu_Warszawa WHERE id = :id
+        """, id=id)
+        # Usuwamy z Szczegoly_Samochodu_Warszawa
+        cursor_db2.execute("""
+            DELETE FROM Szczegoly_Samochodu_Warszawa WHERE id = :id
+        """, id=id)
+        conn_db2.commit()
+        cursor_db2.close()
+        conn_db2.close()
+    else:
+        # Samochód z Wrocławia - usuń z DB_1
+        conn_db1 = get_db1_connection()
+        cursor_db1 = conn_db1.cursor()
+        # Usuwamy najpierw z Typ_Samochodu
+        cursor_db1.execute("""
+            DELETE FROM Typ_Samochodu WHERE id = :id
+        """, id=id)
+        # Usuwamy z Szczegoly_Samochodu
+        cursor_db1.execute("""
+            DELETE FROM Szczegoly_Samochodu WHERE id = :id
+        """, id=id)
+        conn_db1.commit()
+        cursor_db1.close()
+        conn_db1.close()
+    return redirect(url_for('samochody'))
+
 
 @app.route('/dodaj_klienta', methods=['GET', 'POST'])
 def dodaj_klienta():
@@ -263,12 +345,13 @@ def dodaj_klienta():
 
 @app.route('/samochody')
 def samochody():
-    # Wyświetlanie listy samochodów z informacją o dostępności
     conn_db1 = get_db1_connection()
     cursor_db1 = conn_db1.cursor()
     query = """
         SELECT s.id, s.nr_rejestracyjny, sz.marka, sz.model, sz.kolor,
-               CASE WHEN w.id_samochodu IS NULL THEN 'Dostępny' ELSE 'Wypożyczony' END AS status
+               CASE WHEN w.id_samochodu IS NULL THEN 'Dostępny' ELSE 'Wypożyczony' END AS status,
+               s.id_punktu,
+               w.id AS id_wypozyczenia
         FROM Typ_Samochodu s
         JOIN Szczegoly_Samochodu sz ON s.id = sz.id
         LEFT JOIN Wypozyczenia w ON s.id = w.id_samochodu AND w.data_zwrotu IS NULL

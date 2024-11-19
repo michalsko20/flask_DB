@@ -33,6 +33,9 @@
             <td>{{ klient[1] }}</td>
             <td>{{ klient[2] }}</td>
             <td>{{ klient[3] }}</td>
+            <td>
+                <a href="{{ url_for('usun_klienta', id_klienta=klient[0], id_punktu_fk=2) }}">Usuń</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -51,6 +54,9 @@
             <td>{{ klient[1] }}</td>
             <td>{{ klient[2] }}</td>
             <td>{{ klient[3] }}</td>
+            <td>
+                <a href="{{ url_for('usun_klienta', id_klienta=klient[0], id_punktu_fk=1) }}">Usuń</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
