@@ -7,17 +7,13 @@ app = Flask(__name__)
 # Konfiguracja połączenia do DB_1 (Wrocław)
 DB_1_DSN = cx_Oracle.makedsn("46.60.16.247", 1539, service_name="freepdb1")
 DB_1_CONNECTION = {
-    'user': 'user_wro',
-    'password': 'oracle',
-    'dsn': DB_1_DSN
+
 }
 
 # Konfiguracja połączenia do DB_2 (Warszawa)
 DB_2_DSN = cx_Oracle.makedsn("46.60.20.5", 1539, service_name="freepdb1")
 DB_2_CONNECTION = {
-    'user': 'user_wwa',
-    'password': 'oracle',
-    'dsn': DB_2_DSN
+
 }
 
 
